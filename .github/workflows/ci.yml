@@ -61,3 +61,14 @@ jobs:
           IMAGE=ghcr.io/${{ github.actor }}/localgov-backend:latest
           IMAGE_LC=$(echo "$IMAGE" | tr '[:upper:]' '[:lower:]')
           docker push $IMAGE_LC
+
+      - name: Security scan cu Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ghcr.io/rzvc93/localgov-backend:latest
+          format: table
+          exit-code: 0
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+
