@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <!-- General application logs (spring.log) -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>logs/spring.log</file>
         <append>true</append>
@@ -8,8 +10,23 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
-        <appender-ref ref="FILE"/>
-    </root>
-</configuration>
+    <!-- 🔼 ADDED: Dedicated appender for audit logs (audit.log) -->
+    <appender name="AUDIT" class="ch.qos.logback.core.FileAppender">
+        <file>/var/log/localgov/audit.log</file> 
+        <append>true</append>
+        <encoder>
+            <pattern>%msg%n</pattern> 
+        </encoder>
+    </appender>
 
+    <!-- 🔼 ADDED: Audit logger with its own appender -->
+    <logger name="com.localgov.audit" level="INFO" additivity="false">
+        <appender-ref ref="AUDIT" />
+    </logger>
+
+    <!-- Root logger for everything else -->
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
