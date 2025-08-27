@@ -12,7 +12,7 @@
 
     <!-- 🔼 ADDED: Dedicated appender for audit logs (audit.log) -->
     <appender name="AUDIT" class="ch.qos.logback.core.FileAppender">
-        <file>/var/log/localgov/audit.log</file> 
+        <file>logs/audit.log</file> 
         <append>true</append>
         <encoder>
             <pattern>%msg%n</pattern> 
